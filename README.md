@@ -149,7 +149,7 @@ When a client exceeds their rate limit, `Rack::Throttle` by default returns
 a 429 (Too Many Requests) header with an associated "Rate Limit Exceeded" message
 in the response body.
 
-The status code can be overridden by passing in a `:code => 503` option when
+The status code can be overridden by passing in `:code => 403` option when
 constructing a `Rack::Throttle::Limiter` instance.
 
 Documentation
