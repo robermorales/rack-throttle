@@ -30,4 +30,11 @@ describe Rack::Throttle::Hourly do
     get "/foo"
     last_response.body.should show_allowed_response
   end
+  
+  it "should issue Retry-After: 3600" do
+    app.should_receive(:allowed?).and_return(false)
+    get "/foo"
+    last_response.headers["Retry-After"].should  == "3600"
+  end
+  
 end
