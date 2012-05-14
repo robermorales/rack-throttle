@@ -1,5 +1,6 @@
 HTTP Request Rate Limiter for Rack Applications
 ===============================================
+[![Travis CI Status](https://secure.travis-ci.org/Viximo/rack-throttle.png?rvm=1.9.3)](http://travis-ci.org/Viximo/rack-throttle)
 
 This is [Rack][] middleware that provides logic for rate-limiting incoming
 HTTP requests to Rack applications. You can use `Rack::Throttle` with any
