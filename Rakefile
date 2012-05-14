@@ -6,3 +6,9 @@ begin
 rescue LoadError => e
 end
 require 'rack/throttle'
+
+require 'spec/rake/spectask'
+
+Spec::Rake::SpecTask.new(:spec)
+
+task :default => :spec
