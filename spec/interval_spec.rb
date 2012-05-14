@@ -33,4 +33,11 @@ describe Rack::Throttle::Interval do
     get "/foo"
     last_response.body.should show_allowed_response
   end
+  
+  it "should issue a Retry-After header" do
+    app.should_receive(:allowed?).and_return(false)
+    get "/foo"
+    last_response.headers.include?("Retry-After").should == true
+  end
+  
 end

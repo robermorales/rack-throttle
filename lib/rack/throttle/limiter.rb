@@ -10,16 +10,20 @@ module Rack; module Throttle
   #   end
   #
   class Limiter
+    
     attr_reader :app
     attr_reader :options
-
+    
+    CODE = 429 # http://tools.ietf.org/html/rfc6585
+    MESSAGE = "Rate Limit Exceeded"
+    
     ##
     # @param  [#call]                       app
     # @param  [Hash{Symbol => Object}]      options
     # @option options [String]  :cache      (Hash.new)
     # @option options [String]  :key        (nil)
     # @option options [String]  :key_prefix (nil)
-    # @option options [Integer] :code       (403)
+    # @option options [Integer] :code       (429)
     # @option options [String]  :message    ("Rate Limit Exceeded")
     def initialize(app, options = {})
       @app, @options = app, options
@@ -177,7 +181,7 @@ module Rack; module Throttle
     def rate_limit_exceeded(request)
       options[:rate_limit_exceeded_callback].call(request) if options[:rate_limit_exceeded_callback]
       headers = respond_to?(:retry_after) ? {'Retry-After' => retry_after.to_f.ceil.to_s} : {}
-      http_error(options[:code] || 403, options[:message] || 'Rate Limit Exceeded', headers)
+      http_error(options[:code] || CODE, options[:message] || MESSAGE, headers)
     end
 
     ##

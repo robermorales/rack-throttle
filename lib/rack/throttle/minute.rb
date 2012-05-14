@@ -28,6 +28,10 @@ module Rack; module Throttle
     def max_per_minute
       @max_per_hour ||= options[:max_per_minute] || options[:max] || 60
     end
+    
+    def retry_after
+      "60" # simplification, because the strategy is not sliding
+    end
 
     alias_method :max_per_window, :max_per_minute
 

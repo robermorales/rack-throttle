@@ -32,6 +32,10 @@ module Rack; module Throttle
 
     alias_method :max_per_window, :max_per_day
 
+    def retry_after
+      "86400" # simplification, because the strategy is not sliding
+    end
+    
     protected
 
     ##
